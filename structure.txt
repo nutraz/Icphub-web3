@@ -1,0 +1,21 @@
+.
+├── canisters
+│   ├── auth
+│   ├── backend
+│   ├── chain_fusion
+│   ├── ipfs
+│   └── storage
+├── dfx.json
+├── Icp_hub
+├── LICENSE
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+│   ├── Icp_hub_backend
+│   └── Icp_hub_frontend
+├── structure.txt
+├── tsconfig.json
+└── vite
+
+10 directories, 8 files

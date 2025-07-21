@@ -1,12 +1,22 @@
 {
-  "name": "Icp_hub",
-  "type": "module",
+  "name": "icphub-web3",
+  "version": "1.0.0",
+  "description": "ICP Hub Web3 application",
+  "private": true,
   "workspaces": [
     "src/Icp_hub_frontend"
   ],
+  "devDependencies": {
+    "@dfinity/agent": "^0.19.2",
+    "@dfinity/candid": "^0.19.2",
+    "@dfinity/principal": "^0.19.2"
+  },
   "scripts": {
-    "build": "npm run build -w src/Icp_hub_frontend",
-    "start": "npm run dev -w src/Icp_hub_frontend"
+    "start": "dfx start --background",
+    "build": "dfx build",
+    "deploy": "dfx deploy",
+    "test": "dfx test"
   }
 }
+
 

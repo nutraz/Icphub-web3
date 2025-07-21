@@ -1,18 +1,12 @@
 {
   "canisters": {
-    "ICPHub_frontend": {
-      "type": "assets",
-      "source": ["src/Icp_hub_frontend/dist"],
-      "dependencies": []
+    "icp_hub_backend": {
+      "type": "motoko",
+      "main": "src/icp_hub_backend/main.mo"
     }
   },
   "defaults": {
-    "build": {
-      "output": "src/Icp_hub_frontend/dist"
-    }
-  },
-  "frontend": {
-    "entrypoint": "src/Icp_hub_frontend"
+    "build": {}
   }
 }
 

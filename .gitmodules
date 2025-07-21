@@ -1,0 +1,3 @@
+[submodule "libs/pocketic"]
+	path = libs/pocketic
+	url = https://github.com/dfinity/pocketic
