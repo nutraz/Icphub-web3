@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { backend_canister } from 'declarations/backend_canister';
 import { ArrowLeft, GitBranch, Lock, Globe, FileText, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -30,7 +31,7 @@ export const CreateRepository = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name.trim()) {
       toast({
         title: "Repository name required",
@@ -42,18 +43,17 @@ export const CreateRepository = () => {
 
     setIsLoading(true);
 
-    // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const repo_id = await backend_canister.create_repository(formData.name, formData.description);
       
       toast({
         title: "Repository created successfully!",
-        description: `${formData.name} has been created and is ready to use.`
+        description: `${formData.name} has been created with ID: ${repo_id}.`
       });
 
-      // Navigate to the new repository (using a mock ID)
-      navigate(`/repositories/new-repo-${Date.now()}`);
+      navigate(`/repositories/${repo_id}`);
     } catch (error) {
+      console.error("Failed to create repository:", error);
       toast({
         title: "Failed to create repository",
         description: "There was an error creating your repository. Please try again.",
