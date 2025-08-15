@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { backend_canister } from 'declarations/backend_canister';
+import { toast } from '@/hooks/use-toast';
 import { 
   ArrowLeft, 
   Star, 
@@ -112,6 +114,45 @@ export const RepositoryView = () => {
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState<string | null>('README.md');
   const [expandedFolders, setExpandedFolders] = useState<string[]>(['contracts']);
+  const [bountyIssueId, setBountyIssueId] = useState('');
+  const [bountyAmount, setBountyAmount] = useState('');
+  const [isCreatingBounty, setIsCreatingBounty] = useState(false);
+
+  const handleCreateBounty = async () => {
+    if (!bountyIssueId || !bountyAmount) {
+      toast({
+        title: "Missing fields",
+        description: "Please enter both an issue ID and a bounty amount.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsCreatingBounty(true);
+    try {
+      const repoId = BigInt(id || 0);
+      const issueId = BigInt(bountyIssueId);
+      const amount = BigInt(bountyAmount);
+
+      const bounty_id = await backend_canister.create_bounty(repoId, issueId, amount);
+
+      toast({
+        title: "Bounty created successfully!",
+        description: `Bounty with ID ${bounty_id} has been created for issue #${issueId}.`
+      });
+      setBountyIssueId('');
+      setBountyAmount('');
+    } catch (error) {
+      console.error("Failed to create bounty:", error);
+      toast({
+        title: "Failed to create bounty",
+        description: "There was an error creating the bounty. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsCreatingBounty(false);
+    }
+  };
 
   const toggleFolder = (folderName: string) => {
     setExpandedFolders(prev => 
@@ -360,11 +401,33 @@ export const RepositoryView = () => {
 
             <TabsContent value="issues">
               <Card className="glass-card">
-                <CardContent className="p-8 text-center">
-                  <div className="text-muted-foreground">
-                    <p>Issues tracking coming soon!</p>
-                    <p className="text-sm mt-2">Track bugs, feature requests, and project discussions.</p>
+                <CardHeader>
+                  <CardTitle>Create a Bounty for an Issue</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="issueId">Issue ID</Label>
+                    <Input
+                      id="issueId"
+                      type="number"
+                      placeholder="e.g., 42"
+                      value={bountyIssueId}
+                      onChange={(e) => setBountyIssueId(e.target.value)}
+                    />
                   </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="bountyAmount">Bounty Amount (in OKT)</Label>
+                    <Input
+                      id="bountyAmount"
+                      type="number"
+                      placeholder="e.g., 100"
+                      value={bountyAmount}
+                      onChange={(e) => setBountyAmount(e.target.value)}
+                    />
+                  </div>
+                  <Button onClick={handleCreateBounty} disabled={isCreatingBounty}>
+                    {isCreatingBounty ? 'Creating...' : 'Create Bounty'}
+                  </Button>
                 </CardContent>
               </Card>
             </TabsContent>

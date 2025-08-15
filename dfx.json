@@ -2,11 +2,59 @@
   "canisters": {
     "icp_hub_backend": {
       "type": "motoko",
-      "main": "src/icp_hub_backend/main.mo"
+      "main": "src/icp_hub_backend/main.mo",
+      "declarations": {
+        "output": "src/Icp_hub_frontend/src/declarations/icp_hub_backend"
+      }
+    },
+    "auth_canister": {
+      "type": "motoko",
+      "main": "canisters/auth/src/main.mo",
+      "declarations": {
+        "output": "src/Icp_hub_frontend/src/declarations/auth_canister"
+      }
+    },
+    "backend_canister": {
+      "type": "motoko",
+      "main": "canisters/backend/src/main.mo",
+      "declarations": {
+        "output": "src/Icp_hub_frontend/src/declarations/backend_canister"
+      }
+    },
+    "chain_fusion_canister": {
+      "type": "motoko",
+      "main": "canisters/chain_fusion/src/main.mo",
+      "declarations": {
+        "output": "src/Icp_hub_frontend/src/declarations/chain_fusion_canister"
+      }
+    },
+    "ipfs_canister": {
+      "type": "motoko",
+      "main": "canisters/ipfs/src/main.mo",
+      "declarations": {
+        "output": "src/Icp_hub_frontend/src/declarations/ipfs_canister"
+      }
+    },
+    "storage_canister": {
+      "type": "motoko",
+      "main": "canisters/storage/src/main.mo",
+      "declarations": {
+        "output": "src/Icp_hub_frontend/src/declarations/storage_canister"
+      }
+    },
+    "bounty_canister": {
+      "type": "motoko",
+      "main": "canisters/bounty/src/main.mo",
+      "declarations": {
+        "output": "src/Icp_hub_frontend/src/declarations/bounty_canister"
+      }
+    },
+    "test_canister": {
+      "type": "motoko",
+      "main": "tests/repo_and_bounty.test.mo"
     }
   },
   "defaults": {
     "build": {}
   }
 }
-

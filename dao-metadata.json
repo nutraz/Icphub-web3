@@ -1,10 +1,10 @@
 {
-  "name": "wrapai-dao",
-  "description": "DAO for ICPHub governance and decentralized coordination.",
+  "name": "OpenKeyHub DAO",
+  "description": "The official DAO for OpenKeyHub, a decentralized GitHub alternative for Web3 development and collaboration.",
   "links": [
     {
       "name": "GitHub",
-      "url": "https://github.com/nutraz/icphub-web3"
+      "url": "https://github.com/Icphub-web3/Icp_hub.git"
     },
     {
       "name": "Website",
@@ -12,8 +12,7 @@
     }
   ],
   "token": {
-    "name": "ICPHub Token",
-    "symbol": "ICPX"
+    "name": "OpenKey Token",
+    "symbol": "OKT"
   }
 }
-
